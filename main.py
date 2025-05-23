@@ -64,14 +64,34 @@ if "messages" not in st.session_state:
 # 提出課題用
 col1, col2, col3, col4 = st.columns([2, 2, 3, 3])
 with col1:
+    st.markdown("""
+        <div style="margin-bottom: 0.5rem;">
+        </div>
+    """, unsafe_allow_html=True)
+    st.markdown("""
+        <style>
+            div[data-testid="stButton"] button {
+                height: 0.5em;
+            }
+        </style>
+    """, unsafe_allow_html=True)
     if st.session_state.start_flg:
         st.button("開始", use_container_width=True, type="primary")
     else:
         st.session_state.start_flg = st.button("開始", use_container_width=True, type="primary")
 with col2:
-    st.session_state.speed = st.selectbox(label="再生速度", options=ct.PLAY_SPEED_OPTION, index=3, label_visibility="collapsed")
+    st.session_state.speed = st.selectbox(
+        label="再生速度",
+        options=ct.PLAY_SPEED_OPTION,
+        index=3,
+        label_visibility="visible"
+    )
 with col3:
-    st.session_state.mode = st.selectbox(label="モード", options=[ct.MODE_1, ct.MODE_2, ct.MODE_3], label_visibility="collapsed")
+    st.session_state.mode = st.selectbox(
+        label="モード（会話形式）",
+        options=[ct.MODE_1, ct.MODE_2, ct.MODE_3],
+        label_visibility="visible"
+    )
     # モードを変更した際の処理
     if st.session_state.mode != st.session_state.pre_mode:
         # 自動でそのモードの処理が実行されないようにする
@@ -92,7 +112,11 @@ with col3:
         st.session_state.chat_open_flg = False
     st.session_state.pre_mode = st.session_state.mode
 with col4:
-    st.session_state.englv = st.selectbox(label="英語レベル", options=ct.ENGLISH_LEVEL_OPTION, label_visibility="collapsed")
+    st.session_state.englv = st.selectbox(
+        label="英語レベル（難易度）",
+        options=ct.ENGLISH_LEVEL_OPTION,
+        label_visibility="visible"
+    )
 
 with st.chat_message("assistant", avatar="images/ai_icon.jpg"):
     st.markdown("こちらは生成AIによる音声英会話の練習アプリです。何度も繰り返し練習し、英語力をアップさせましょう。")
